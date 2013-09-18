@@ -66,7 +66,6 @@ var app = {
 	        , 'Exit'
 	        , 'No,Yes'
 	    );  
-	    return false;
 	}
 
 };
