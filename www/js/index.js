@@ -35,9 +35,9 @@ var app = {
 	onDeviceReady: function() {
 		app.receivedEvent('deviceready');
 
-		document.addEventListener("backbutton", function() {
+		document.addEventListener('backbutton', function() {
 			if ( $('.ui-page-active').attr('id') == 'main') {
-				exitAppPopup();
+				app.exitAppPopup();
 			} else {
 				history.back();             
 			}
@@ -53,20 +53,21 @@ var app = {
 		receivedElement.setAttribute('style', 'display:block;');
 
 		console.log('Received Event: ' + id);
+	},
+
+	exitAppPopup: function() {
+	    navigator.notification.confirm(
+	          'Exit Rail Manager ' + device.cordova + '?'
+	        , function(button) {
+	              if (button == 2) {
+	                  navigator.app.exitApp();
+	              } 
+	          }
+	        , 'Exit'
+	        , 'No,Yes'
+	    );  
+	    return false;
 	}
 
 };
 
-function exitAppPopup() {
-    navigator.notification.confirm(
-          'Exit Rail Manager ' + device.cordova + '?'
-        , function(button) {
-              if (button == 2) {
-                  navigator.app.exitApp();
-              } 
-          }
-        , 'Exit'
-        , 'No,Yes'
-    );  
-    return false;
-}
