@@ -34,7 +34,7 @@ var app = {
 	// function, we must explicity call 'app.receivedEvent(...);'
 	onDeviceReady: function() {
 		app.receivedEvent('deviceready');
-		document.addEventListener('backbutton', this.onBackButton, false);
+		//document.addEventListener('backbutton', this.onBackButton, false);
 	},
 	onBackButton: function() {
 		if ( $('.ui-page-active').attr('id') == 'main') {
@@ -52,19 +52,6 @@ var app = {
 		listeningElement.setAttribute('style', 'display:none;');
 		receivedElement.setAttribute('style', 'display:block;');
 
-	},
-	// confirm app exit dialog
-	exitAppPopup: function() {
-	    navigator.notification.confirm(
-	        'Exit Rail Manager?',
-	        function(button) {
-	            if (button == 2) {
-	                navigator.app.exitApp();
-	            } 
-	        },
-	        'Exit',
-	        'No,Yes'
-	    );  
 	}
 
 };
