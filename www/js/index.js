@@ -34,14 +34,14 @@ var app = {
 	// function, we must explicity call 'app.receivedEvent(...);'
 	onDeviceReady: function() {
 		app.receivedEvent('deviceready');
-
-		document.addEventListener('backbutton', function() {
-			if ( $('.ui-page-active').attr('id') == 'main') {
-				app.exitAppPopup();
-			} else {
-				history.back();             
-			}
-		}, false);
+		document.addEventListener('backbutton', this.onBackButton, false);
+	},
+	onBackButton: function() {
+		if ( $('.ui-page-active').attr('id') == 'main') {
+			app.exitAppPopup();
+		} else {
+			history.back();
+		}
 	},
 	// Update DOM on a Received Event
 	receivedEvent: function(id) {
@@ -52,19 +52,18 @@ var app = {
 		listeningElement.setAttribute('style', 'display:none;');
 		receivedElement.setAttribute('style', 'display:block;');
 
-		console.log('Received Event: ' + id);
 	},
-
+	// confirm app exit dialog
 	exitAppPopup: function() {
 	    navigator.notification.confirm(
-	          'Exit Rail Manager ' + device.cordova + '?'
-	        , function(button) {
-	              if (button == 2) {
-	                  navigator.app.exitApp();
-	              } 
-	          }
-	        , 'Exit'
-	        , 'No,Yes'
+	        'Exit Rail Manager?',
+	        function(button) {
+	            if (button == 2) {
+	                navigator.app.exitApp();
+	            } 
+	        },
+	        'Exit',
+	        'No,Yes'
 	    );  
 	}
 
